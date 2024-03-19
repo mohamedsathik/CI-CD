@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
     res.json(
         {
             status: 200,
-            message: "Hello Everyone"
+            message: "lets welcome this page"
 
         }
     )
