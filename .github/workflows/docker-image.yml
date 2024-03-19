@@ -22,4 +22,4 @@ jobs:
       run: docker build -t ci-cd .
 
     - name: push to dockerhub
-      run: docker push alexkhan2628/ci-cd:latest
+      run: docker push mohamedsathik/ci-cd:latest
