@@ -19,7 +19,7 @@ jobs:
 
       
     - name: Build the Docker image
-      run: docker build -t ci-cd .
+      run: docker build -t alexkhan2628/ci-cd .
 
     - name: push to dockerhub
-      run: docker push alexkhan2628/ci-cd:latest
+      run: docker push alexkhan2628/ci-cd
