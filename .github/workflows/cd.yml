@@ -33,14 +33,14 @@ jobs:
             fi
 
             if groups | grep -q docker; then
-              echo "USer is already exist"
+              echo "User is already exist"
             else
               echo "User is not a part of group"
               sudo usermod -a -G docker $(whoami)
-              
+              newgrp docker
             fi
             
-            docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+            echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --passwd-stdin 
             
             docker pull alexkhan2628/ci-cd:latest
             
