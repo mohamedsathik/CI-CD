@@ -1,26 +1,44 @@
 name: Docker Image CD
 
 on:
-    workflow_run:
-      workflows: ["Docker Image CI"]
-      types:
-        - completed
+  push:
+    branches: [main]
 
 
 jobs:
-
-  build:
-
-    runs-on: self-hosted
+  build and deploy:
+    runs-on: ubuntu-latest
 
     steps:
-        - name: Pull the Docker Image
-          run: sudo docker pull alexkhan2628/ci-cd:latest
+      - uses: actions/checkoutv3
 
-        - name: Old docker container
-          run: sudo docker rm -rf ci-cd-container || true
+      - name: Login into AWS instances
+        uses: appleboy/ssh.action@master
+        with:
+          host: ${{ secrets.EC2HOSTNAME }}
+          username: ${{ secrets.EC2USERNAME }}
+          key: ${{ secrets.EC2KEY }}
 
-        - name: Run the Docker Container
-          run: sudo docker run -d -p 3000:3000 --name ci-cd-container alexkhan2628/ci-cd
-          
-          
+      - name: Install Docker
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install docker.io -y
+
+      - name: Check for usermod is present here
+        run: |
+          if groups | grep -q docker; then
+            echo "USer is already exist"
+          else
+            echo "User is not a part of group"
+            sudo usermod -a -G docker $(whoami)
+            newgrp docker
+          fi
+
+      - name: Login Docker
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: built the  docekr Images
+        run: docker build -t alexkhan2628/ci-cd:latest .
+
+      - name: build and Run docker Container
+        run: docker run -d --name ci-cd-container -p 3000:3000 alexalexkhan2628/ci-cd:latest
