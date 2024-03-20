@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkoutv3
+      - uses: actions/checkoutv2
 
       - name: Login into AWS instances
-        uses: appleboy/ssh.action@master
+        uses: appleboy/ssh.action@v1.0.3
         with:
           host: ${{ secrets.EC2HOSTNAME }}
           username: ${{ secrets.EC2USERNAME }}
@@ -42,5 +42,5 @@ jobs:
       - name: built the  docekr Images
         run: docker build -t alexkhan2628/ci-cd:latest .
 
-      - name: build and Run docker Container
+      - name: Run docker Container
         run: docker run -d --name ci-cd-container -p 3000:3000 alexalexkhan2628/ci-cd:latest
