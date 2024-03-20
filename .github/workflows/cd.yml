@@ -24,7 +24,7 @@ jobs:
       - name: Install Docker
         run: |
           sudo apt-get update -y
-          sudo apt-get install docker.io -y
+          curl -fsSL https://get.docker.com | sh
 
       - name: Check for usermod is present here
         run: |
