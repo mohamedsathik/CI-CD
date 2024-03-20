@@ -37,7 +37,7 @@ jobs:
             else
               echo "User is not a part of group"
               sudo usermod -a -G docker $(whoami)
-              newgrp docker
+              
             fi
             
             docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
