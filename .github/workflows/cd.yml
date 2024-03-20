@@ -23,9 +23,14 @@ jobs:
 
       - name: Install Docker
         run: |
-          sudo apt-get update -y
-          curl -fsSL https://get.docker.com | sh
-
+          if ! command -v docker &> /dev/null
+          then
+              echo "Docker is not installed. Installing Docker..."
+              curl -fsSL https://get.docker.com | sh
+          else
+              echo "Docker is already installed."
+          fi
+          
       - name: Check for usermod is present here
         run: |
           if groups | grep -q docker; then
@@ -40,7 +45,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: built the  docekr Images
-        run: docker build -t alexkhan2628/ci-cd:latest .
+        run: docker pull alexkhan2628/ci-cd:latest
 
       - name: Run docker Container
-        run: docker run -d --name ci-cd-container -p 3000:3000 alexalexkhan2628/ci-cd:latest
+        run: docker run -d --name ci-cd-container -p 3000:3000 alexkhan2628/ci-cd:latest
