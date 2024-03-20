@@ -43,5 +43,7 @@ jobs:
             echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --passwd-stdin 
             
             docker pull alexkhan2628/ci-cd:latest
+
+            docker rm -f ci-cd-container
             
             docker run -d --name ci-cd-container -p 3000:3000 alexkhan2628/ci-cd:latest
