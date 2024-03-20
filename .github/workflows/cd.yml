@@ -41,7 +41,7 @@ jobs:
             newgrp docker
           fi
 
-      - name: Login Docker
+      - name: Login Docker account
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: built the  docekr Images
