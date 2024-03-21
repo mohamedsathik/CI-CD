@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: NAvigate the folder
-        run: cd "$(pwd)"/terraform
+        run: cd "$(pwd)"/terraform && ls
 
 
       - name: check
