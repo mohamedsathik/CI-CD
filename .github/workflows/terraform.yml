@@ -10,14 +10,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: terraform/
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: NAvigate the folder
-        run: cd "$(pwd)"/terraform && ls
-
-
+      
       - name: check
         run: ls && pwd
         
