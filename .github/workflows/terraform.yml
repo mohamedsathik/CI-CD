@@ -9,28 +9,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      AWS_ACCESS_KEY_ID : ${{ secrets.ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY : ${{ secrets.SECRET_KEY }}
+      
     defaults:
       run:
         working-directory: terraform/
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: ACCESS KEY AND SECRET KEY
-        env:
-          ACCESS_KEY : ${{ secrets.ACCESS_KEY }}
-          SECRET_KEY : ${{ secrets.SECRET_KEY }}
-          
-        run: export AWS_ACCESS_KEY="ACCESS_KEY" && export AWS_SECRET_KEY="SECRET_KEY"
-
-
+        uses: actions/checkout@v4      
+       
       - name: check
         run: ls && pwd
         
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        
 
       - name: Initialize Terraform
         run: terraform init
