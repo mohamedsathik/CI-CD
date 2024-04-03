@@ -5,16 +5,7 @@ variable "aws_instance" {
 
 }
 
-variable "instance_count" {
-  description = "Instance Count"
-  type        = number
-  default     = 1
-}
 
-variable "ip_address" {
-  description = "Allocate an IP address"
-  default     = true
-  type        = bool
 
-}
+
 

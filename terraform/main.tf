@@ -11,9 +11,11 @@ terraform {
 resource "aws_instance" "ec2_example" {
   ami                         = "ami-080e1f13689e07408"
   instance_type               = var.aws_instance
-  count                       = var.instance_count
-  associate_public_ip_address = var.ip_address
-  tags = {
-    Name = "CI-Terraform${count.index + 1}"
+    tags = {
+    Name = "CI-Terraform"
   }
+}
+
+output "ec2_ipaddress"{
+  value = "aws_instance.ec2_example.public_dns"
 }
