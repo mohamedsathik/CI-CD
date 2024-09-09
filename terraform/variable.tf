@@ -12,7 +12,7 @@ variable "instance_count" {
 }
 
 variable "ip_address" {
-  description = "Allocate an IP address"
+  description = "Allocate an is IP address"
   default     = true
   type        = bool
 
